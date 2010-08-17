@@ -1,7 +1,7 @@
 %define debug_package	%{nil}
 
 Name: x11-driver-video-xgixp
-Version: 1.7.99.4
+Version: 1.8.0
 Release: %mkrel 1
 Summary: X.org driver for XGIxp Cards
 Group: System/X11
