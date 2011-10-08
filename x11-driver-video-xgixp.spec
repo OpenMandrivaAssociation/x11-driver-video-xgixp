@@ -2,7 +2,7 @@
 
 Name: x11-driver-video-xgixp
 Version: 1.8.0
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: X.org driver for XGIxp Cards
 Group: System/X11
 URL: http://xorg.freedesktop.org
