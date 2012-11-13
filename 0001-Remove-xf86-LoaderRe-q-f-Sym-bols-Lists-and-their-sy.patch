@@ -1,0 +1,245 @@
+From 5b14aef69371ba66f3ab9b8b438f9f9cb19ad52f Mon Sep 17 00:00:00 2001
+From: Paulo Zanoni <pzanoni@mandriva.com>
+Date: Mon, 13 Dec 2010 13:23:15 -0200
+Subject: [PATCH 1/2 xgixp] Remove {xf86, }LoaderRe{q, f}Sym{bols, Lists} and their symbols
+
+You get an "undefined symbol" message if you try to load the driver in
+xserver 1.9.
+According to xserver commit 71a83d68ab07536c0778d13cd7da974c40e77457
+they do nothing since 2006.
+
+Signed-off-by: Paulo Zanoni <pzanoni@mandriva.com>
+---
+ src/xgi_driver.c |  160 ------------------------------------------------------
+ 1 files changed, 0 insertions(+), 160 deletions(-)
+
+diff --git a/src/xgi_driver.c b/src/xgi_driver.c
+index e54d8c7..77a14ff 100644
+--- a/src/xgi_driver.c
++++ b/src/xgi_driver.c
+@@ -152,148 +152,6 @@ static void xg47_setup_fb_wrap(ReadMemoryProcPtr *read_ptr,
+ static void xg47_finish_fb_wrap(DrawablePtr pDraw);
+ 
+ 
+-static const char *vgahwSymbols[] = {
+-    "vgaHWBlankScreen",
+-    "vgaHWddc1SetSpeedWeak",
+-    "vgaHWFreeHWRec",
+-    "vgaHWGetHWRec",
+-    "vgaHWGetIOBase",
+-    "vgaHWGetIndex",
+-    "vgaHWInit",
+-    "vgaHWLock",
+-    "vgaHWMapMem",
+-    "vgaHWProtect",
+-    "vgaHWRestore",
+-    "vgaHWSave",
+-    "vgaHWSaveScreen",
+-    "vgaHWSetMmioFuncs",
+-    "vgaHWUnlock",
+-    NULL
+-};
+-
+-static const char *ddcSymbols[] = {
+-    "xf86DoEDID_DDC1",
+-    "xf86DoEDID_DDC2",
+-    "xf86PrintEDID",
+-    "xf86SetDDCproperties",
+-    NULL
+-};
+-
+-static const char *i2cSymbols[] = {
+-    "xf86CreateI2CBusRec",
+-    "xf86I2CBusInit",
+-    NULL
+-};
+-
+-static const char *fbSymbols[] = {
+-#if X_BYTE_ORDER == X_BIG_ENDIAN
+-    "wfbPictureInit",
+-    "wfbScreenInit",
+-#else
+-    "fbPictureInit",
+-    "fbScreenInit",
+-#endif
+-    NULL
+-};
+-
+-static const char *xaaSymbols[] = {
+-    "XAACreateInfoRec",
+-    "XAADestroyInfoRec",
+-    "XAAFillSolidRects",
+-    "XAAGetCopyROP",
+-    "XAAGetPatternROP", 
+-    "XAAInit",
+-    "XAAScreenIndex",
+-    "XAAStippleScanlineFuncLSBFirst",
+-    "XAAOverlayFBfuncs",
+-    "XAACachePlanarMonoStipple",
+-    "XAAHelpPatternROP",
+-    NULL
+-};
+-
+-static const char *ramdacSymbols[] = {
+-    "xf86CreateCursorInfoRec",
+-    "xf86DestroyCursorInfoRec",
+-    "xf86InitCursor",
+-    NULL
+-};
+-
+-static const char *drmSymbols[] = {
+-    "drmGetInterruptFromBusID",
+-    "drmCtlInstHandler",
+-    "drmCtlUninstHandler",
+-    "drmCommandNone",
+-    "drmCommandRead",
+-    "drmCommandWrite",
+-    "drmCommandWriteRead",
+-    "drmFreeVersion",
+-    "drmGetLibVersion",
+-    "drmGetVersion",
+-    "drmMap",
+-    "drmUnmap",
+-    NULL
+-};
+-
+-static const char *driSymbols[] = {
+-    "DRICloseScreen",
+-    "DRICreateInfoRec",
+-    "DRIDestroyInfoRec",
+-    "DRIFinishScreenInit",
+-    "DRIGetContext",
+-    "DRIGetDeviceInfo",
+-    "DRIGetSAREAPrivate",
+-    "DRILock",
+-    "DRIQueryVersion",
+-    "DRIScreenInit",
+-    "DRIUnlock",
+-    "DRICreatePCIBusID",
+-    NULL
+-};
+-
+-static const char *vbeSymbols[] = {
+-    "VBEInit",
+-    "VBEDPMSSet",
+-    "vbeDoEDID",
+-    "vbeFree",
+-    NULL
+-};
+-
+-static const char *int10Symbols[] = {
+-    "xf86ExecX86int10",
+-    "xf86FreeInt10",
+-    "xf86InitInt10",
+-    NULL
+-};
+-
+-static const char *shadowSymbols[] = {
+-    "shadowInit",
+-    NULL
+-};
+-
+-static const char *fbdevHWSymbols[] = {
+-    "fbdevHWInit",
+-    "fbdevHWUseBuildinMode",
+-    "fbdevHWGetLineLength",
+-    "fbdevHWGetVidmem",
+-    "fbdevHWDPMSSet",
+-    /* colormap */
+-    "fbdevHWLoadPaletteWeak",
+-    /* ScrnInfo hooks */
+-    "fbdevHWAdjustFrameWeak",
+-    "fbdevHWEnterVT",
+-    "fbdevHWLeaveVT",
+-    "fbdevHWModeInit",
+-    "fbdevHWRestore",
+-    "fbdevHWSave",
+-    "fbdevHWSwitchModeWeak",
+-    "fbdevHWValidModeWeak",
+-    "fbdevHWMapMMIO",
+-    "fbdevHWMapVidmem",
+-    "fbdevHWUnmapMMIO",
+-    "fbdevHWUnmapVidmem",
+-    NULL
+-};
+-
+ #ifdef XSERVER_LIBPCIACCESS
+ #define XGI_DEVICE_MATCH(d, i) \
+     { 0x18ca, (d), PCI_MATCH_ANY, PCI_MATCH_ANY, 0, 0, (i) }
+@@ -430,13 +288,6 @@ static pointer XGISetup(pointer module,
+             return NULL;
+         }
+ 
+-        LoaderReqSymLists(vgahwSymbols, fbSymbols, driSymbols, drmSymbols,
+-                          NULL);
+-
+-
+-        LoaderRefSymLists(i2cSymbols, ramdacSymbols, 
+-                          xaaSymbols, shadowSymbols, fbdevHWSymbols, NULL);
+-
+         /*
+          * The return value must be non-NULL on success even though
+          * there is no TearDownProc.
+@@ -1017,8 +868,6 @@ static Bool XGIPreInitInt10(ScrnInfoPtr pScrn)
+         return FALSE;
+     }
+ 
+-    xf86LoaderReqSymLists(vbeSymbols, int10Symbols, NULL);
+-
+ #if DBG_FLOW
+     xf86DrvMsg(pScrn->scrnIndex, X_INFO, "-- Leave %s() %s:%d\n", __FUNCTION__, __FILE__, __LINE__);
+ #endif
+@@ -1287,7 +1136,6 @@ static Bool XGIPreInitCursor(ScrnInfoPtr pScrn)
+     if (!xf86ReturnOptValBool(pXGI->pOptionInfo, OPTION_SW_CURSOR, FALSE))
+     {
+         if (!xf86LoadSubModule(pScrn, "ramdac")) return FALSE;
+-        xf86LoaderReqSymLists(ramdacSymbols, NULL);
+     }
+ 
+ #if DBG_FLOW
+@@ -1314,8 +1162,6 @@ static Bool XGIPreInitAccel(ScrnInfoPtr pScrn)
+          */
+         if (!g_DualViewMode || pXGI->FirstView) 
+             if (!xf86LoadSubModule(pScrn, "xaa")) return FALSE;
+-
+-        xf86LoaderReqSymLists(xaaSymbols, NULL);
+     }
+ 
+ #if DBG_FLOW
+@@ -1476,7 +1322,6 @@ static Bool XGIPreInitShadow(ScrnInfoPtr pScrn)
+             XGIFreeRec(pScrn);
+             return FALSE;
+         }
+-        xf86LoaderReqSymLists(shadowSymbols, NULL);
+     }
+ 
+ #if DBG_FLOW
+@@ -1493,7 +1338,6 @@ xf86MonPtr get_configured_monitor(ScrnInfoPtr pScrn, int index)
+ 
+ 
+     if (xf86LoadSubModule(pScrn, "i2c")) {
+-        xf86LoaderReqSymLists(i2cSymbols, NULL);
+ 	if (!xg47_InitI2C(pScrn)) {
+ 	    xf86DrvMsg(pScrn->scrnIndex, X_ERROR,
+ 		       "I2C initialization failed!\n");
+@@ -1508,9 +1352,6 @@ xf86MonPtr get_configured_monitor(ScrnInfoPtr pScrn, int index)
+         return NULL;
+     }
+ 
+-    xf86LoaderReqSymLists(ddcSymbols, NULL);
+-
+-
+     if (pXGI->pI2C != NULL) {
+         pMon = xf86DoEDID_DDC2(pScrn->scrnIndex, pXGI->pI2C);
+     }
+@@ -1650,7 +1491,6 @@ Bool XGIPreInit(ScrnInfoPtr pScrn, int flags)
+ 
+ 	/* Jong 07/07/2006; has error - _dl_catch_error() from /lib/ld-linux.so.2 ???? */
+         if (!xf86LoadSubModule(pScrn, "fbdevhw")) return FALSE;
+-        xf86LoaderReqSymLists(fbdevHWSymbols, NULL);
+ 
+         /* check for linux framebuffer device */
+         if (!fbdevHWInit(pScrn, pXGI->pPciInfo, NULL)) return FALSE;
+-- 
+1.7.1
+
