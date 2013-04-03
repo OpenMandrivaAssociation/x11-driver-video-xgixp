@@ -1,4 +1,5 @@
 %define debug_package	%{nil}
+%define _disable_ld_no_undefined 1
 
 Name: x11-driver-video-xgixp
 Version: 1.8.1
