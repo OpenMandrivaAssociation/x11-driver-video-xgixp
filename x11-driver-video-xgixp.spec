@@ -1,14 +1,13 @@
 %define debug_package	%{nil}
 
 Name: x11-driver-video-xgixp
-Version: 1.8.0
-Release: 5
+Version: 1.8.1
+Release: 1
 Summary: X.org driver for XGIxp Cards
 Group: System/X11
 License: MIT
 URL: http://xorg.freedesktop.org
 Source0: http://xorg.freedesktop.org/releases/individual/driver/xf86-video-xgixp-%{version}.tar.bz2
-Patch0: 0001-Remove-xf86-LoaderRe-q-f-Sym-bols-Lists-and-their-sy.patch
 
 BuildRequires: x11-util-macros		>= 1.1.5
 BuildRequires: pkgconfig(libdrm)	>= 2.3.0
@@ -23,7 +22,6 @@ x11-driver-video-xgixp is the X.org driver for Generic XGIxp Cards.
 
 %prep
 %setup -qn xf86-video-xgixp-%{version}
-%apply_patches
 
 %build
 %configure2_5x
