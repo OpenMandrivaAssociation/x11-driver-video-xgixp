@@ -8,6 +8,7 @@ Group: System/X11
 License: MIT
 URL: http://xorg.freedesktop.org
 Source0: http://xorg.freedesktop.org/releases/individual/driver/xf86-video-xgixp-%{version}.tar.bz2
+Patch1:	xf86-video-xgixp-1.8.1-mibstore.patch
 
 BuildRequires: x11-util-macros		>= 1.1.5
 BuildRequires: pkgconfig(libdrm)	>= 2.3.0
@@ -22,6 +23,7 @@ x11-driver-video-xgixp is the X.org driver for Generic XGIxp Cards.
 
 %prep
 %setup -qn xf86-video-xgixp-%{version}
+%patch1 -p1
 
 %build
 %configure2_5x
