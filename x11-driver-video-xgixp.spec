@@ -3,7 +3,7 @@
 
 Name: x11-driver-video-xgixp
 Version: 1.8.1
-Release: 4
+Release: 5
 Summary: X.org driver for XGIxp Cards
 Group: System/X11
 License: MIT
