@@ -10,7 +10,10 @@ License: MIT
 URL: http://xorg.freedesktop.org
 Source0: http://xorg.freedesktop.org/releases/individual/driver/xf86-video-xgixp-%{version}.tar.bz2
 Patch1:	xf86-video-xgixp-1.8.1-mibstore.patch
-
+Patch2: 0002-Remove-symbol-lists-as-they-are-not-used-any-more.patch
+Patch3: 0003-shadow-shadowInit-shadowAdd-Remove.patch
+Patch4: 0004-Stop-using-deprecated-xf86PciInfo.h.patch
+Patch5: 0005-Update-for-new-damage-API.patch
 BuildRequires: x11-util-macros		>= 1.1.5
 BuildRequires: pkgconfig(libdrm)	>= 2.3.0
 BuildRequires: pkgconfig(pixman-1)	>= 0.9.6
@@ -24,7 +27,7 @@ x11-driver-video-xgixp is the X.org driver for Generic XGIxp Cards.
 
 %prep
 %setup -qn xf86-video-xgixp-%{version}
-%patch1 -p1
+%apply_patches
 
 %build
 %configure2_5x
