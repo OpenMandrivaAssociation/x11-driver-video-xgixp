@@ -22,7 +22,7 @@ x11-driver-video-xgixp is the X.org driver for Generic XGIxp Cards.
 
 %prep
 %setup -qn xf86-video-xgixp-%{version}
-%apply_patches
+%autopatch -p1
 [ -e autogen.sh ] && ./autogen.sh
 
 %build
