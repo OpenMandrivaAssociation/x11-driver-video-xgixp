@@ -7,7 +7,7 @@ Release: 4
 Summary: X.org driver for XGIxp Cards
 Group: System/X11
 License: MIT
-URL: http://xorg.freedesktop.org
+URL: https://xorg.freedesktop.org
 Source0: http://xorg.freedesktop.org/releases/individual/driver/xf86-video-xgixp-%{version}.tar.bz2
 BuildRequires: x11-util-macros		>= 1.1.5
 BuildRequires: pkgconfig(libdrm)	>= 2.3.0
