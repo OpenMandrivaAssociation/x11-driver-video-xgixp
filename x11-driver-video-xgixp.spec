@@ -9,6 +9,11 @@ Group: System/X11
 License: MIT
 URL: https://xorg.freedesktop.org
 Source0: http://xorg.freedesktop.org/releases/individual/driver/xf86-video-xgixp-%{version}.tar.bz2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires: x11-util-macros		>= 1.1.5
 BuildRequires: pkgconfig(libdrm)	>= 2.3.0
 BuildRequires: pkgconfig(pixman-1)	>= 0.9.6
